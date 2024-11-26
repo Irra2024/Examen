@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Dinámico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question label {
+            display: block;
+        }
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Examen Dinámico</h1>
+    <form id="quizForm">
+        <!-- Preguntas -->
+        <div class="question">
+            <h3>1. ¿Qué lema propuso el pueblo francés durante la Revolución Francesa?</h3>
+            <label><input type="radio" name="q1" value="correct"> Libertad, Igualdad, Fraternidad</label>
+            <label><input type="radio" name="q1" value="wrong"> Justicia, Fuerza, Prosperidad</label>
+        </div>
+        <div class="question">
+            <h3>2. ¿Cuál NO es una causa externa de la independencia de las colonias americanas?</h3>
+            <label><input type="radio" name="q2" value="wrong"> Revolución Francesa</label>
+            <label><input type="radio" name="q2" value="wrong"> La Ilustración</label>
+            <label><input type="radio" name="q2" value="correct"> La caída del muro de Berlín</label>
+        </div>
+        <div class="question">
+            <h3>3. La Revolución Francesa promovió la creación de los Derechos Humanos. (Verdadero/Falso)</h3>
+            <label><input type="radio" name="q3" value="correct"> Verdadero</label>
+            <label><input type="radio" name="q3" value="wrong"> Falso</label>
+        </div>
+        <div class="question">
+            <h3>4. ¿Qué cambio político-social ocurrió en Europa a finales del siglo XVIII?</h3>
+            <label><input type="radio" name="q4" value="wrong"> Revolución Industrial</label>
+            <label><input type="radio" name="q4" value="correct"> Revolución Francesa</label>
+            <label><input type="radio" name="q4" value="wrong"> Era Napoleónica</label>
+        </div>
+        <div class="question">
+            <h3>5. ¿Cuál es la importancia del estudio de la geografía?</h3>
+            <label><input type="radio" name="q5" value="correct"> Ayuda a conocer el clima, relieve y características del territorio</label>
+            <label><input type="radio" name="q5" value="wrong"> Es una ciencia sin aplicaciones prácticas</label>
+        </div>
+        <div class="question">
+            <h3>6. ¿Qué se entiende por "colonia" en la historia?</h3>
+            <label><input type="radio" name="q6" value="wrong"> Conquista</label>
+            <label><input type="radio" name="q6" value="correct"> Grupo de personas de origen geográfico distinto que se instalan en otro lugar</label>
+            <label><input type="radio" name="q6" value="wrong"> Resguardo</label>
+        </div>
+        <div class="question">
+            <h3>7. ¿A qué se le conoce como el cambio violento y radical en las instituciones políticas de una sociedad?</h3>
+            <label><input type="radio" name="q7" value="wrong"> Guerra</label>
+            <label><input type="radio" name="q7" value="correct"> Revolución</label>
+            <label><input type="radio" name="q7" value="wrong"> Batalla</label>
+        </div>
+        <div class="question">
+            <h3>8. La Revolución Francesa acabó con el feudalismo y dio origen a la república. (Verdadero/Falso)</h3>
+            <label><input type="radio" name="q8" value="correct"> Verdadero</label>
+            <label><input type="radio" name="q8" value="wrong"> Falso</label>
+        </div>
+        <div class="question">
+            <h3>9. ¿Qué fue una consecuencia importante de la Revolución Francesa?</h3>
+            <label><input type="radio" name="q9" value="wrong"> Formación de compañías de seguros</label>
+            <label><input type="radio" name="q9" value="correct"> Fin del orden feudal y nacimiento de la república</label>
+            <label><input type="radio" name="q9" value="wrong"> Desaparición de cuatro imperios europeos</label>
+        </div>
+        <div class="question">
+            <h3>10. La Ilustración fue una causa importante de la independencia de las colonias americanas. (Verdadero/Falso)</h3>
+            <label><input type="radio" name="q10" value="correct"> Verdadero</label>
+            <label><input type="radio" name="q10" value="wrong"> Falso</label>
+        </div>
+        <div class="question">
+            <h3>11. ¿Por qué fue necesaria la Declaración Universal de los Derechos Humanos?</h3>
+            <label><input type="radio" name="q11" value="correct"> Para proteger la dignidad y los derechos de todas las personas</label>
+            <label><input type="radio" name="q11" value="wrong"> Para beneficiar a los gobiernos coloniales</label>
+        </div>
+        <div class="question">
+            <h3>12. ¿Qué permitió a los territorios colonizados recuperar soberanía tras siglos de dominación?</h3>
+            <label><input type="radio" name="q12" value="correct"> Procesos de independencia</label>
+            <label><input type="radio" name="q12" value="wrong"> Reformas borbónicas</label>
+        </div>
+        <button type="button" class="btn" onclick="calculateScore()">Enviar</button>
+    </form>
+    <div id="result" class="result"></div>
+
+    <script>
+        function calculateScore() {
+            const form = document.getElementById('quizForm');
+            const answers = form.querySelectorAll('input[type="radio"]:checked');
+            let score = 0;
+
+            answers.forEach(answer => {
+                if (answer.value === 'correct') {
+                    score += 8.33; // 12 preguntas para 100 puntos
+                }
+            });
+
+            const result = document.getElementById('result');
+            result.textContent = `Tu puntaje final es: ${Math.round(score)}/100`;
+        }
+    </script>
+</body>
+</html>
